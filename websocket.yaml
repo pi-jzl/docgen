@@ -1,0 +1,61 @@
+asyncapi: "1.2.1"
+info:
+  title: AsyncAPI Websocket Sample
+  version: "1.0"
+  description: |
+    This is a simple example of an _AsyncAPI_ document.
+baseTopic: 'PI'
+
+servers:
+  - url: my-websocket-server.com:8888
+    description: Allows you to connect to my-websocket-server.com.
+    scheme: ws
+  - url: my-websocket-server.com:18888
+    description: Allows you to connect to my-websocket-server.com.
+    scheme: wss
+
+topics:
+    onConnection:
+      send:
+        $ref: '#/components/messages/userSignUp'
+    onDisconnection:
+      receive:
+        $ref: '#/components/messages/userLogout'
+
+components:
+  messages:
+    userSignUp:
+      summary: When user first connect to websocket server.
+      description: |
+        Multiline description of what this action does. **It allows Markdown.**
+      payload:
+        type: object
+        properties:
+          user:
+            $ref: "#/components/schemas/userCreate"
+    userLogout:
+      summary: When user disconnect to websocket server.
+      description: |
+        Multiline description of what this action does. **It allows Markdown.**
+      payload:
+        type: object
+        properties:
+          user:
+            $ref: "#/components/schemas/username"
+  schemas:
+    username:
+      title: username
+      description: User handle
+      type: string
+    userCreate:
+      type: object
+      required:
+        - username
+        - password
+      properties:
+        username:
+          $ref: "#/components/schemas/username"
+        password:
+          description: User password
+          type: string
+

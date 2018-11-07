@@ -13,6 +13,14 @@
     <span class="operation-badge operation-badge--subscribe topic__header__operation-badge">Subscribe</span>
     {{/if}}
 
+    {{#if topic.send}}
+    <span class="operation-badge operation-badge--publish topic__header__operation-badge">Send</span>
+    {{/if}}
+
+    {{#if topic.receive}}
+    <span class="operation-badge operation-badge--publish topic__header__operation-badge">Receive</span>
+    {{/if}}
+
     {{topicName}}
   </h3>
 
@@ -44,6 +52,24 @@
   {{else}}
     {{~#if topic.subscribe ~}}
       {{~> operation operation=topic.subscribe~}}
+    {{~/if~}}
+  {{~/each~}}
+
+  {{~#each topic.receive.oneOf as |op index| ~}}
+    <h4>Message #{{inc index}}</h4>
+    {{~> operation operation=op cssClasses='operation--indented'~}}
+  {{else}}
+    {{~#if topic.receive ~}}
+      {{~> operation operation=topic.receive~}}
+    {{~/if~}}
+  {{~/each~}}
+
+  {{~#each topic.send.oneOf as |op index| ~}}
+    <h4>Message #{{inc index}}</h4>
+    {{~> operation operation=op cssClasses='operation--indented'~}}
+  {{else}}
+    {{~#if topic.send ~}}
+      {{~> operation operation=topic.send~}}
     {{~/if~}}
   {{~/each~}}
 </div>

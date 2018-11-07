@@ -50,6 +50,11 @@ Specify where to put the generated documentation:
 adg asyncapi.yaml -o ./docs
 ```
 
+Generate the websocket example:
+```bash
+node cli.js websocket.yaml -o ./output
+```
+
 ### As a module in your project
 
 Place a file called `asyncapi.yaml` in the same directory as the following script, and then run it. You can obtain the content of the file from [editor.asyncapi.org](https://editor.asyncapi.org), not included here for brevity.
